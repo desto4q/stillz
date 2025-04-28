@@ -6,6 +6,7 @@ import { createClient, currDb } from "~/client/pocketbase";
 import Card from "~/components/Card";
 import type { Route } from "../post+/+types/route";
 import FlexGrid from "~/components/FlexGrid";
+import TitleHeader from "~/components/TitleHeader";
 export let loader = async ({ request, params }: Route.LoaderArgs) => {
   let db = createClient();
   let page = params.page ?? "1";
@@ -28,11 +29,11 @@ export default function index() {
   if (query.isError || !query.data) return <>error</>;
   return (
     <div className="mx-auto container">
-      <div className="flex gap-2 items-center mt-4 py-2">
+      <TitleHeader>
         <span className="font-bold text-xl">Filters:</span> <div></div>
-      </div>
+      </TitleHeader>
 
-      <div className="mt-4">
+      <div className="mt-2">
         <FlexGrid>
           {query.data.items.map((e: any) => (
             <Card {...e} key={e.id} />

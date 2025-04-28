@@ -19,9 +19,6 @@ function NavBar() {
     },
   });
 
-  // useEffect(() => {
-  //   console.log(query.data, query.error, query.isError, query.error);
-  // }, [query.isFetching, query.isError]);
   return (
     <div className="h-18 bg-base-200 drop-shadow-lg sticky top-0 z-20">
       <nav className="mx-auto h-full flex items-center container gap-2 px-2 md:px-0">
@@ -46,40 +43,18 @@ function NavBar() {
         </div>
         <div className="ml-auto">
           {query.isFetching ? (
-            <div className="flex gap-2 items-center px-4">
-              <div className="loading"></div>
-            </div>
+            <>loading</>
           ) : (
-            <div className="flex items-center ">
-              {query.isError ||
-                (!query.data && (
-                  <div className="join">
-                    <Link to={"/auth/login"} className="join-item btn btn-soft">
-                      Login
-                    </Link>
-                    <Link
-                      to={"/auth/login"}
-                      className="join-item btn btn-primary btn-soft"
-                    >
-                      Sign Up
-                    </Link>
-                  </div>
-                ))}
-              {!query.isError || query.data ? (
-                <>
-                  <div className="md:flex items-center hidden ">
-                    <button className="btn btn-primary">
-                      <PlusIcon />
-                      <span className="hidden lg:inline">Create</span>
-                    </button>
-                    <Link to={"/user"} className="flex gap-2 btn btn-ghost">
-                      <div className="size-6 outline-primary outline rounded-full bg-base-100"></div>
-                      <h2>{query.data?.profile?.userName || "User"}</h2>
-                    </Link>
-                  </div>
-                </>
-              ) : null}
-            </div>
+            !query.isError && <>{query.data?.profile.userName}</>
+          )}
+
+          {query.isError && (
+            <>
+              <div className="join">
+                <Link className="btn join-item" to="auth/login">Login</Link>
+                <Link className="btn join-item" to="auth/signup">SignUp</Link>
+              </div>
+            </>
           )}
         </div>
       </nav>
