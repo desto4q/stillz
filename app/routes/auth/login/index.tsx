@@ -1,5 +1,5 @@
 import type { Route } from "./+types";
-import { useActionData } from "react-router";
+import { redirect, useActionData } from "react-router";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { ClientResponseError } from "pocketbase";
@@ -27,14 +27,9 @@ export let action = async (req: Route.ActionArgs) => {
     });
     let header = new Headers();
     header.append("set-cookie", authCookie);
-    return Response.json(
-      {
-        message: "loggedIN",
-      },
-      {
-        headers: header,
-      },
-    );
+    return redirect("/home", {
+      headers: header,
+    });
   } catch (err) {
     if (err instanceof ClientResponseError) {
       return {
