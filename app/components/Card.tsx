@@ -24,7 +24,7 @@ export default function Card(props: Post) {
   return (
     <Link
       to={`/post/${props.id}`}
-      className="flex flex-col  gap-1  hover:grayscale-100 active:scale-95 duration-150 cursor-pointer"
+      className="flex flex-col  gap-1  hover:grayscale-100 active:scale-[.99] duration-150 cursor-pointer"
     >
       <div className="aspect-video w-full bg-primary/25 flex relative rounded-md ">
         {/* <div className="badge absolute badge-primary badge-xs">{dur}</div> */}
