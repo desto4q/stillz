@@ -25,7 +25,8 @@ function NavBar() {
     <div className="h-18 bg-base-200 drop-shadow-lg sticky top-0 z-20">
       <nav className="mx-auto h-full flex items-center container gap-2 px-2 md:px-0">
         <Link
-          to={"/"}
+          viewTransition
+          to={"/home"}
           className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-primary"
         >
           <span className="hidden md:inline">Stillz</span>
@@ -56,14 +57,16 @@ function NavBar() {
                       <button
                         tabIndex={0}
                         role="button"
-                        className="btn  btn-flair btn-secondary"
+                        className="btn btn-square md:btn-block md:px-2  btn-flair btn-secondary duration-150"
                       >
                         <div className="flex gap-2 items-center">
                           <div className="size-6 rounded avatar ring">
                             {/* <img src={query.data.profile.profileImg} alt="" /> */}
                             <ProfileImage {...query.data.profile} />
                           </div>
-                          @{query.data?.profile.userName}
+                          <p className="hidden md:inline">
+                            @{query.data?.profile.userName}
+                          </p>
                         </div>
                       </button>
                       <ul

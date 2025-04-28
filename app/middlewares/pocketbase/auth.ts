@@ -1,7 +1,7 @@
 import Client, { isTokenExpired } from "pocketbase";
 import { redirect } from "react-router";
 import { cookie } from "~/helpers/helpers";
-let safe_urls = ["/auth", "/home", "/search", "/api"];
+let safe_urls = ["/auth", "/home", "/search", "/api","/post"];
 
 export let withAuth = async (req: Request, res: Response, db: Client) => {
   let cookies = req.headers.get("cookie") ?? null;

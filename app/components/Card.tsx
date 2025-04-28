@@ -23,6 +23,7 @@ export default function Card(props: Post) {
   });
   return (
     <Link
+      viewTransition
       to={`/post/${props.id}`}
       className="flex flex-col  gap-1  hover:grayscale-100 active:scale-[.99] duration-150 cursor-pointer"
     >

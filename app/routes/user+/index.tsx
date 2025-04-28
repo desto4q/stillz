@@ -32,9 +32,7 @@ export default function index() {
     },
     initialData: user_data,
   });
-  useEffect(() => {
-    console.log(query.data);
-  }, [query.data]);
+
   if (query.isFetching) <>loading</>;
   if (query.error || !query.data) <>error</>;
   if (!query.data) return <>error</>;

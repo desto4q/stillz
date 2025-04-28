@@ -8,16 +8,7 @@
 import { ClientResponseError } from "pocketbase";
 import { currDb } from "~/client/pocketbase";
 
-// export const useUserQuery = (id: string, options: QueryObserverOptions) => {
-//   const queryOptions: QueryObserverOptions = {
-//     staleTime: 300,
 
-//     enabled: !!id,
-//     ...options,
-//   };
-
-//   return useQuery({["custom-query", id], async () =>} );
-// };
 
 export let validateUserName = async (username: string) => {
   try {
