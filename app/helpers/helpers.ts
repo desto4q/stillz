@@ -32,10 +32,18 @@ let get_user = async (db: Client, token: string | undefined) => {
       .getFirstListItem(`user_id="${user?.id}"`);
     return { user, profile };
   } catch (err) {
-    // if (err instanceof ClientResponseError) {
-    //   throw redirect("/user/register");
-    // }
-    return Response.json(
+    if (err instanceof ClientResponseError) {
+      throw Response.json(
+        {
+          error: err.message,
+        },
+        {
+          status: err.status,
+          statusText: err.name,
+        },
+      );
+    }
+    throw Response.json(
       {
         message: err,
       },

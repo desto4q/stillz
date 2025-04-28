@@ -13,7 +13,7 @@ function NavBar() {
         credentials: "include",
       });
       if (!resp.ok) {
-        throw new Error("error");console.
+        throw new Error("error");
       }
       return await resp.json();
     },

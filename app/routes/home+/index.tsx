@@ -5,6 +5,7 @@ import { useLoaderData } from "react-router";
 import { createClient, currDb } from "~/client/pocketbase";
 import Card from "~/components/Card";
 import type { Route } from "../post+/+types/route";
+import FlexGrid from "~/components/FlexGrid";
 export let loader = async ({ request, params }: Route.LoaderArgs) => {
   let db = createClient();
   let page = params.page ?? "1";
@@ -32,11 +33,11 @@ export default function index() {
       </div>
 
       <div className="mt-4">
-        <div className="grid grid-cols-4">
+        <FlexGrid>
           {query.data.items.map((e: any) => (
             <Card {...e} key={e.id} />
           ))}
-        </div>
+        </FlexGrid>
       </div>
     </div>
   );

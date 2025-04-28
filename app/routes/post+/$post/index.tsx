@@ -9,6 +9,7 @@ import { Player } from "react-tuby";
 import "react-tuby/css/main.css";
 import { ClientOnly } from "remix-utils/client-only";
 import Client from "pocketbase";
+import BackBtn from "~/components/BackBtn";
 
 export let loader = async ({ request, params }: Route.LoaderArgs) => {
   let url = new URL(request.url);
@@ -29,13 +30,10 @@ export default function index() {
   return (
     <FlexBody>
       <div className="container mx-auto flex-1">
-        <div className="py-2 flex items-center mt-4 gap-4">
-          <button className="btn btn-ghost btn-soft text-lg">
-            <ArrowLeftIcon /> Go back
-          </button>
+        <div className="py-2 flex items-center mt-4 gap-4 px-2">
+          <BackBtn />
           <h2>{resp.title}</h2>
         </div>
-
         <div className="w-full aspect-video bg-base-200 rounded-xl relative isolate duration-150">
           <ClientOnly fallback={<></>}>
             {() => <Player src={vid_url} poster={img_url} />}

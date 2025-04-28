@@ -39,6 +39,7 @@ let client = new QueryClient({
     queries: {
       retry: 1,
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
     },
   },
 });
@@ -49,6 +50,7 @@ export let loader = async ({ request }: Route.LoaderArgs) => {
   let db = createClient();
   let cookies = request.headers.get("cookie") ?? null;
   let token = get_token(cookies ?? "") ?? null;
+  if (!token) return null;
   let { user, profile } = await get_user(db, token!);
   return Response.json({ user, profile });
 };
