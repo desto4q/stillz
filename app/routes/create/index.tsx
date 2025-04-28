@@ -116,7 +116,6 @@ function Index() {
               let resp = await generate_thumb(url);
               let thumb_url = URL.createObjectURL(resp as Blob);
               console.log(thumb_url);
-
               const file = new File(
                 [resp as Blob],
                 vidRef.current?.files[0]?.name.replace(

@@ -20,6 +20,13 @@ export let action = async (req: Route.ActionArgs) => {
     let resp = await db
       .collection("users")
       .authWithPassword(auth_data.email, auth_data.password);
+    if (!resp.record.verified) {
+      await db.collection("users").requestVerification(auth_data.email);
+
+      return {
+        error: "user not verified; check email for link",
+      };
+    }
     let token = db.authStore.exportToCookie();
     console.log("token", token);
     let authCookie = cookie.serialize("pb_auth", token, {

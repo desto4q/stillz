@@ -94,3 +94,5 @@ body {
     --depth: 1;
     --noise: 0;
 }
+
+html { padding: 0 !important; scrollbar-gutter: stable; }

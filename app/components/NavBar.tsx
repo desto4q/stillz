@@ -4,7 +4,9 @@ import { PlusIcon, SearchIcon } from "lucide-react";
 import { Suspense, useEffect, useRef } from "react";
 import { useFetcher, useRouteLoaderData } from "react-router";
 import { Link } from "react-router";
-import type { UserData } from "~/routes/user+";
+import { ClientOnly } from "remix-utils/client-only";
+import type { UserData } from "~/types/types";
+import ProfileImage from "./ProfileImg";
 function NavBar() {
   let query = useQuery<UserData>({
     queryKey: ["user_info"],
@@ -42,67 +44,79 @@ function NavBar() {
           </form>
         </div>
         <div className="ml-auto">
-          <Suspense fallback={<>loading</>}>
-            {query.isFetching ? (
-              <>loading</>
-            ) : (
-              !query.isError &&
-              query.data && (
-                <div className="dropdown dropdown-end">
-                  <button
-                    tabIndex={0}
-                    role="button"
-                    className="btn  btn-flair btn-secondary"
-                  >
-                    <div className="flex gap-2 items-center">
-                      <div className="size-6 rounded avatar ring"></div>@
-                      {query.data?.profile.userName}
-                    </div>
-                  </button>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-                  >
-                    <li>
-                      <Link className="to" to={"/user"}>
-                        Profile
-                      </Link>
-                    </li>
-                    <li className="">
-                      <form
-                        action="/api/user/auth/logout"
-                        method="post"
-                        className="flex"
+          <ClientOnly fallback={<>loading</>}>
+            {() => (
+              <div>
+                {query.isFetching ? (
+                  <>loading</>
+                ) : (
+                  !query.isError &&
+                  query.data && (
+                    <div className="dropdown dropdown-end">
+                      <button
+                        tabIndex={0}
+                        role="button"
+                        className="btn  btn-flair btn-secondary"
                       >
-                        <button className="btn btn-error btn-flair w-full">
-                          logout
-                        </button>
-                      </form>
-                    </li>
-                  </ul>
-                </div>
-              )
+                        <div className="flex gap-2 items-center">
+                          <div className="size-6 rounded avatar ring">
+                            {/* <img src={query.data.profile.profileImg} alt="" /> */}
+                            <ProfileImage {...query.data.profile} />
+                          </div>
+                          @{query.data?.profile.userName}
+                        </div>
+                      </button>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                      >
+                        <li>
+                          <Link className="to" to={"/user"}>
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="" to={"/Create"}>
+                            Create
+                          </Link>
+                        </li>
+                        <li className="">
+                          <form
+                            action="/api/user/auth/logout"
+                            method="post"
+                            className="flex"
+                          >
+                            <button className="btn btn-error btn-flair w-full">
+                              logout
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
+                    </div>
+                  )
+                )}
+                {query.isError ||
+                  (!query.data && (
+                    <>
+                      <div className="join">
+                        <Link
+                          className="btn join-item btn-flair btn-primary"
+                          to="/auth/login"
+                        >
+                          Login
+                        </Link>
+                        <Link
+                          className="btn join-item btn-flair btn-secondary"
+                          to="/auth/signup"
+                        >
+                          SignUp
+                        </Link>
+                      </div>
+                    </>
+                  ))}
+              </div>
             )}
-            {query.isError ||
-              (!query.data && (
-                <>
-                  <div className="join">
-                    <Link
-                      className="btn join-item btn-flair btn-primary"
-                      to="/auth/login"
-                    >
-                      Login
-                    </Link>
-                    <Link
-                      className="btn join-item btn-flair btn-secondary"
-                      to="/auth/signup"
-                    >
-                      SignUp
-                    </Link>
-                  </div>
-                </>
-              ))}
-          </Suspense>
+          </ClientOnly>
         </div>
       </nav>
     </div>
