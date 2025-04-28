@@ -43,7 +43,6 @@ export default function index() {
     <FlexBody>
       <div className="flex-1 mx-auto w-full container px-2 md:px-0">
         <dialog
-          tabIndex={0}
           ref={dialogRef}
           className="modal"
           onClick={(e) => {
@@ -51,19 +50,21 @@ export default function index() {
           }}
         >
           <div
-            className="modal-box"
+            className="max-h-[calc(100dvh_*_4/5)] w-[calc(100vw_*_3/5)] bg-base-100 p-4 rounded-md flex flex-col"
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
-            <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">
-              Press ESC key or click the button below to close
-            </p>
-            <div className="modal-action">
+            <h3 className="font-bold text-lg"></h3>
+            <div className="flex-1">
+              <ProfileImage {...query.data.profile} />
+            </div>
+            <div className="flex items-center justify-between mt-2">
+              <p className="py-4">
+                Press ESC key or click the button below to close
+              </p>
               <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn">Close</button>
+                <button className="btn btn-error btn-flair">Close</button>
               </form>
             </div>
           </div>
@@ -74,7 +75,7 @@ export default function index() {
           </div>
           <div className="absolute left-0 bottom-0  flex items-center gap-2">
             <button
-              className=" size-28 rounded-full bg-base-300 overflow-hidden p-2 "
+              className=" !size-28 rounded-full bg-base-300 overflow-hidden   btn btn-circle btn-ghost border-2  hover:border-primary"
               onClick={() => {
                 if (!dialogRef.current) return;
                 let dialog = dialogRef.current;

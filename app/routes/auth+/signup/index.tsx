@@ -86,7 +86,7 @@ export default function index() {
     return toast.success(actionData.message);
   };
   useEffect(() => {
-    toast_response()
+    toast_response();
   }, [actionData]);
   return (
     <FlexCenter>
