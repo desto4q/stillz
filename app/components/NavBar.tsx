@@ -2,13 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { MenuIcon, PlusIcon, SearchIcon } from "lucide-react";
 import { Suspense, useEffect, useRef } from "react";
-import { useFetcher, useRouteLoaderData } from "react-router";
+import { useFetcher, useNavigate, useRouteLoaderData } from "react-router";
 import { Link } from "react-router";
 import { ClientOnly } from "remix-utils/client-only";
 import type { UserData } from "~/types/types";
 import ProfileImage from "./ProfileImg";
 import { useAtom } from "jotai";
 import { drawer_atom } from "~/client/ui";
+import { toast } from "sonner";
 function NavBar() {
   let query = useQuery<UserData>({
     queryKey: ["user_info"],
@@ -23,6 +24,7 @@ function NavBar() {
     },
   });
   let [open, setOpen] = useAtom(drawer_atom);
+  let navigate = useNavigate();
   return (
     <div className="h-18 bg-base-200 drop-shadow-lg sticky top-0 z-20">
       <nav className="mx-auto h-full flex items-center container gap-2 px-2 md:px-0">
@@ -35,10 +37,23 @@ function NavBar() {
           <span className="inline md:hidden">S</span>
         </Link>
         <div className="flex items-center gap-4 mx-auto w-full max-w-lg">
-          <form className="join w-full" action={"/"}>
+          <form
+            className="join w-full"
+            onSubmit={(e) => {
+              e.preventDefault();
+              let form = new FormData(e.target as HTMLFormElement);
+              let search = form.get("search") as string;
+
+              if (!search || search.length < 3) return toast.error("invalid");
+              navigate("/search/" + search);
+            }}
+            method="post"
+          >
             <input
               className="join-item input w-full"
               placeholder="search"
+              name="search"
+              id="search"
               type="search"
             />
             <button className="btn btn-square join-item btn-soft btn-primary">

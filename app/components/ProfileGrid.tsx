@@ -1,31 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import type { UserProfile } from "~/routes/user+";
 import Card from "./Card";
+import type { PostResponse, UserProfile } from "~/types/types";
 
-export interface Post {
-  collectionId: string;
-  collectionName: string;
-  created: string;
-  id: string;
-  subtitle: string;
-  title: string;
-  updated: string;
-  user_id: string;
-  video: string;
-  duration: number;
-  thumb: string;
-  userName: string;
-}
-
-interface PostResponse {
-  items: Post[];
-  page: number;
-
-  perPage: number;
-  totalItems: number;
-  totalPages: number;
-}
 export default function ProfileGrid(props: UserProfile) {
   let arr = Array(20).fill((e: any) => "sos");
 
@@ -43,7 +20,7 @@ export default function ProfileGrid(props: UserProfile) {
       <div className="flex items-center">
         <h2 className="font-bold text-lg">{props.fullName} Videos</h2>
       </div>
-      <div className="mt-6 grid grid-cols-4 gap-4">
+      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
         {query.data?.items.map((item) => {
           return <Card {...item} key={item.id} />;
         })}

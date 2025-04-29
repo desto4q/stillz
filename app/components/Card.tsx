@@ -5,7 +5,6 @@ import {
   formatDistanceToNow,
   formatDistanceToNowStrict,
 } from "date-fns";
-import type { Post } from "./ProfileGrid";
 import humanizeDuratiom from "humanize-duration";
 import parse from "parse-duration";
 import {
@@ -14,6 +13,7 @@ import {
 } from "humanize-duration-ts";
 import { Link } from "react-router";
 import { ClientOnly } from "remix-utils/client-only";
+import type { Post } from "~/types/types";
 
 let durr = new HumanizeDuration(new HumanizeDurationLanguage());
 
