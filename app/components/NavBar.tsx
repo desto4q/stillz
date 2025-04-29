@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { PlusIcon, SearchIcon } from "lucide-react";
+import { MenuIcon, PlusIcon, SearchIcon } from "lucide-react";
 import { Suspense, useEffect, useRef } from "react";
 import { useFetcher, useRouteLoaderData } from "react-router";
 import { Link } from "react-router";
 import { ClientOnly } from "remix-utils/client-only";
 import type { UserData } from "~/types/types";
 import ProfileImage from "./ProfileImg";
+import { useAtom } from "jotai";
+import { drawer_atom } from "~/client/ui";
 function NavBar() {
   let query = useQuery<UserData>({
     queryKey: ["user_info"],
@@ -20,7 +22,7 @@ function NavBar() {
       return await resp.json();
     },
   });
-
+  let [open, setOpen] = useAtom(drawer_atom);
   return (
     <div className="h-18 bg-base-200 drop-shadow-lg sticky top-0 z-20">
       <nav className="mx-auto h-full flex items-center container gap-2 px-2 md:px-0">
@@ -120,6 +122,14 @@ function NavBar() {
               </div>
             )}
           </ClientOnly>
+        </div>
+        <div
+          className="btn btn-square"
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          <MenuIcon />
         </div>
       </nav>
     </div>

@@ -19,7 +19,9 @@ import { clientLogger, serverLogger } from "middleware";
 import { createClient } from "./client/pocketbase";
 import { get_token, get_user } from "./helpers/helpers";
 import { useLoaderData } from "react-router";
-import type { UserData } from "./routes/user+";
+import type { UserData } from "./types/types";
+import SideBar from "./components/SideBar";
+import { ClientOnly } from "remix-utils/client-only";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -56,7 +58,7 @@ export let loader = async ({ request }: Route.LoaderArgs) => {
 };
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme={"dark"}>
+    <html lang="en" data-theme={"fadeol"}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -66,6 +68,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <QueryClientProvider client={client}>
           <Toaster richColors theme="dark" position="top-right" />
+          <ClientOnly>{() => <SideBar />}</ClientOnly>
           {children}
           <ScrollRestoration />
           <Scripts />

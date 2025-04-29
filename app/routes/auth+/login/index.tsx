@@ -36,6 +36,7 @@ export let action = async (req: Route.ActionArgs) => {
     header.append("set-cookie", authCookie);
     return redirect("/home", {
       headers: header,
+
     });
   } catch (err) {
     if (err instanceof ClientResponseError) {

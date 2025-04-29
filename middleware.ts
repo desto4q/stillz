@@ -1,7 +1,6 @@
 import { redirect } from "react-router";
 import type { Route } from "./app/+types/root";
 import { ClientResponseError, isTokenExpired } from "pocketbase";
-
 import { createClient } from "~/client/pocketbase";
 import { updateSession } from "~/middlewares/pocketbase/middleware";
 export let serverLogger: Route.unstable_MiddlewareFunction = async (
