@@ -5,7 +5,7 @@ import NavBar from "~/components/NavBar";
 export default function route() {
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <Outlet />
     </>
   );

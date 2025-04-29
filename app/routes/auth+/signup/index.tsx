@@ -69,15 +69,10 @@ export const action = async ({ request }: Route.ActionArgs) => {
 export default function index() {
   const actionData = useActionData();
   const navigation = useNavigation();
-  // useEffect(() => {
-  //   console.log(actionData);
-  // }, []);
+
   let [url, setUrl] = useState<string | null>(null);
   let [free, setFree] = useState<boolean | null>(null);
-  // let queryUsername = async () => {
-  //   console.log(await validateUserName("dezz"));
-  // };
-  //
+
   let toast_response = () => {
     if (!actionData) return;
     if (actionData.error) {
@@ -118,7 +113,7 @@ export default function index() {
                 return;
               }
               let resp = await validateUserName(val);
-              console.log(resp);
+              // console.log(resp);
               setFree(resp);
             }}
           />
@@ -191,6 +186,22 @@ export default function index() {
           </label>
         </div>
         <button className="btn btn-primary btn-flair">Sign Up</button>
+
+        <div className="flex items-center gap-2 py-2">
+          <span className="h-1 bg-primary/25 w-full"></span>
+          <p>OR</p>
+          <span className="h-1 bg-primary/25 w-full"></span>
+        </div>
+
+        <Link
+          to="/auth/Login"
+          className="btn btn-secondary w-full btn-soft"
+          onClick={(e) => {
+            // e.preventDefault();
+          }}
+        >
+          Login
+        </Link>
       </form>
     </FlexCenter>
   );

@@ -1,5 +1,5 @@
 import type { Route } from "./+types";
-import { redirect, useActionData } from "react-router";
+import { Link, Links, redirect, useActionData } from "react-router";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { ClientResponseError } from "pocketbase";
@@ -36,7 +36,6 @@ export let action = async (req: Route.ActionArgs) => {
     header.append("set-cookie", authCookie);
     return redirect("/home", {
       headers: header,
-
     });
   } catch (err) {
     if (err instanceof ClientResponseError) {
@@ -100,14 +99,15 @@ function index() {
             <span className="h-1 bg-primary/25 w-full"></span>
           </div>
 
-          <button
+          <Link
+            to="/auth/signup"
             className="btn btn-secondary w-full btn-soft"
             onClick={(e) => {
-              e.preventDefault();
+              // e.preventDefault();
             }}
           >
             Sign Up
-          </button>
+          </Link>
         </form>
       </div>
     </div>

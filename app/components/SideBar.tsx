@@ -13,11 +13,11 @@ export default function SideBar() {
   let [open, setOpen] = useAtom(drawer_atom);
   let client = useQueryClient();
   let data = client.getQueryData<UserData>(["user_info"]);
-  let closeSideBar= ()=>{
+  let closeSideBar = () => {
     setTimeout((handler) => {
       setOpen(false);
     }, 200);
-  }
+  };
   return (
     <div
       className={`fixed top-0 right-0 h-dvh w-full    z-50 flex ${
@@ -32,11 +32,13 @@ export default function SideBar() {
         className={`w-xs p-2 bg-base-200 flex flex-col ${!open && "translate-x-[-100%]"} duration-150`}
         onClick={stopPropagation}
       >
-        <h2 className="text-2xl font-bold p-4 border-b border-primary/25 mb-4">Stillz</h2>
+        <h2 className="text-2xl font-bold p-4 border-b border-primary/25 mb-4">
+          Stillz
+        </h2>
         <nav
           className="flex flex-col gap-2 flex-1"
           onClick={() => {
-            closeSideBar()
+            closeSideBar();
           }}
         >
           <Link
@@ -53,8 +55,22 @@ export default function SideBar() {
           </Link>
         </nav>
         <div className="">
+          {!data && (
+            <Link
+              to={"/auth/login"}
+              onClick={closeSideBar}
+              className="btn btn-primary btn-ghost btn-flair w-full mb-4"
+            >
+              Login
+            </Link>
+          )}
           {data && (
-            <Link to="/user" className="flex items-center btn justify-start btn-soft btn-primary" viewTransition onClick={closeSideBar}>
+            <Link
+              to="/user"
+              className="flex items-center btn justify-start btn-soft btn-primary"
+              viewTransition
+              onClick={closeSideBar}
+            >
               <div className="size-10">
                 <img
                   className="size-full object-cover rounded-full"
