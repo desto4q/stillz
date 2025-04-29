@@ -61,7 +61,7 @@ function NavBar() {
             </button>
           </form>
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto  hidden md:flex">
           <ClientOnly fallback={<>loading</>}>
             {() => (
               <div>
@@ -139,7 +139,7 @@ function NavBar() {
           </ClientOnly>
         </div>
         <div
-          className="btn btn-square"
+          className="btn btn-square md:hidden"
           onClick={() => {
             setOpen(true);
           }}

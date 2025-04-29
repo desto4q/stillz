@@ -16,15 +16,17 @@ function Pagination({ totalPages }: { totalPages: number }) {
   return (
     <div className="join">
       <div className="join">
-        {pages.map((pageNum) => (
-          <button
-            key={pageNum}
-            className={`join-item btn ${pageNum === page ? "btn-active" : ""}`}
-            onClick={() => handlePageChange(pageNum)}
-          >
-            {pageNum}
-          </button>
-        ))}
+        {pages
+          .slice(Math.max(0, page - 2), Math.min(totalPages, page + 2))
+          .map((pageNum) => (
+            <button
+              key={pageNum}
+              className={`join-item btn ${pageNum === page ? "btn-active" : ""}`}
+              onClick={() => handlePageChange(pageNum)}
+            >
+              {pageNum}
+            </button>
+          ))}
       </div>
       <form
         className="flex items-center"
@@ -33,7 +35,12 @@ function Pagination({ totalPages }: { totalPages: number }) {
           let form_data = new FormData(e.target as HTMLFormElement);
           let input_page = form_data.get("page");
 
-          searchParams.set("page", input_page as string);
+          if(input_page){
+            let newPage = Number(input_page);
+            if(newPage >= 1 && newPage <= totalPages){
+              handlePageChange(newPage)
+            }
+          }
         }}
       >
         <input

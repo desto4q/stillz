@@ -27,13 +27,13 @@ export default function index() {
         <h2 className="text-xl py-2 font-bold">
           Search: <span className="label text-xl">{search}</span>
         </h2>
-        <FlexGrid >
+        <FlexGrid>
           {data.items.map((callbackfn) => (
-            <Card {...callbackfn} />
+            <Card {...callbackfn} key={callbackfn.id} />
           ))}
         </FlexGrid>
         <div className="mt-auto mx-auto">
-          <Pagination totalPages={4} />
+          <Pagination totalPages={data.totalPages} />
         </div>
       </div>
     </FlexBody>
